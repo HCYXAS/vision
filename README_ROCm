@@ -1,0 +1,4 @@
+This is the torchvision0.4.0 version that support ROCm
+
+install: ROCM_HOME=/opt/rocm CXX=hipcc CC=hipcc python3 setup.py install
+

@@ -1,5 +1,5 @@
 #pragma once
-#include <c10/cuda/CUDAGuard.h>
+#include <ATen/hip/impl/HIPGuardImplMasqueradingAsCUDA.h>
 #include <torch/extension.h>
 
 at::Tensor ROIAlign_forward_cuda(
