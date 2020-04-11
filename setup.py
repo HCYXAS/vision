@@ -29,7 +29,7 @@ def get_dist(pkgname):
         return None
 
 
-version = '0.4.1a0'
+version = '0.4.0a0'
 sha = 'Unknown'
 package_name = 'torchvision'
 
@@ -99,18 +99,19 @@ def get_extensions():
     define_macros = []
 
     extra_compile_args = {}
+    os.environ['FORCE_CUDA']='1'
     if (torch.cuda.is_available() and CUDA_HOME is not None) or os.getenv('FORCE_CUDA', '0') == '1':
         extension = CUDAExtension
         sources += source_cuda
         define_macros += [('WITH_CUDA', None)]
         nvcc_flags = os.getenv('NVCC_FLAGS', '')
         if nvcc_flags == '':
-            nvcc_flags = []
+            nvcc_flags = ['-Wno-inconsistent-missing-override']
         else:
             nvcc_flags = nvcc_flags.split(' ')
         extra_compile_args = {
-            'cxx': ['-O0'],
-            'nvcc': nvcc_flags,
+            'cxx': ['-Wno-inconsistent-missing-override'],
+            'hipcc': nvcc_flags,
         }
 
     if sys.platform == 'win32':
